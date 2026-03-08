@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Student Progress Charts</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+.container{
+width:900px;
+margin:auto;
+background:white;
+padding:20px;
+box-shadow:0 0 10px #ccc;
+}
+
+canvas{
+margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Student Progress Dashboard</h2>
+
+<canvas id="accuracyChart"></canvas>
+
+<canvas id="attemptChart"></canvas>
+
+</div>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("performance")) || {};
+
+let topics=[];
+let accuracy=[];
+let attempts=[];
+
+for(let topic in data){
+
+let a=data[topic].attempts;
+let c=data[topic].correct;
+
+topics.push(topic);
+attempts.push(a);
+
+accuracy.push(((c/a)*100).toFixed(1));
+
+}
+
+// Accuracy Chart
+
+new Chart(document.getElementById("accuracyChart"),{
+
+type:"bar",
+
+data:{
+labels:topics,
+datasets:[{
+label:"Accuracy %",
+data:accuracy
+}]
+},
+
+options:{
+plugins:{
+title:{
+display:true,
+text:"Topic Accuracy"
+}
+},
+scales:{
+y:{
+beginAtZero:true,
+max:100
+}
+}
+}
+
+});
+
+
+// Attempts Chart
+
+new Chart(document.getElementById("attemptChart"),{
+
+type:"line",
+
+data:{
+labels:topics,
+datasets:[{
+label:"Total Attempts",
+data:attempts
+}]
+},
+
+options:{
+plugins:{
+title:{
+display:true,
+text:"Practice Attempts per Topic"
+}
+}
+}
+
+});
+
+</script>
+
+</body>
+</html>

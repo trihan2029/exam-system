@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Weekly Placement Test</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+#box{
+width:900px;
+margin:auto;
+background:white;
+padding:20px;
+box-shadow:0 0 10px #ccc;
+}
+
+img{
+max-width:100%;
+}
+
+button{
+padding:8px;
+margin:5px;
+}
+
+#timer{
+color:red;
+font-size:20px;
+margin-bottom:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="box">
+
+<h2>Weekly Placement Test</h2>
+
+<div id="timer"></div>
+
+<div id="question"></div>
+
+<br>
+
+<label><input type="radio" name="ans" value="A">A</label>
+<label><input type="radio" name="ans" value="B">B</label>
+<label><input type="radio" name="ans" value="C">C</label>
+<label><input type="radio" name="ans" value="D">D</label>
+
+<br><br>
+
+<button onclick="next()">Next</button>
+<button onclick="finish()">Finish</button>
+
+</div>
+
+<script>
+
+let folders=[
+
+"questions/numerical/percentages/",
+"questions/numerical/ratio/",
+"questions/reasoning/series/",
+"questions/verbal/grammar/"
+
+];
+
+let questions=[];
+let index=0;
+let userAnswers={};
+
+let answers=[];
+let totalTime=0;
+let timeLeft=0;
+let timerInterval;
+
+async function loadQuestions(){
+
+for(let folder of folders){
+
+let res=await fetch(folder+"answers.txt");
+let txt=await res.text();
+
+let ans=txt.split(/\r?\n/).map(a=>a.trim()).filter(a=>a!="");
+
+for(let i=0;i<ans.length;i++){
+
+questions.push({
+
+img:folder+(i+1)+".PNG",
+answer:ans[i]
+
+});
+
+}
+
+}
+
+questions.sort(()=>Math.random()-0.5);
+
+// choose first 60 questions for weekly test
+questions = questions.slice(0,60);
+
+startExam();
+
+}
+
+function startExam(){
+
+totalTime = questions.length * 180;
+timeLeft = totalTime;
+
+startTimer();
+
+load();
+
+}
+
+function startTimer(){
+
+timerInterval=setInterval(function(){
+
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+
+document.getElementById("timer").innerHTML=
+"Time Left : "+m+":"+(s<10?"0":"")+s;
+
+timeLeft--;
+
+if(timeLeft<0){
+
+clearInterval(timerInterval);
+finish();
+
+}
+
+},1000);
+
+}
+
+function load(){
+
+document.getElementById("question").innerHTML=
+`<img src="${questions[index].img}">`;
+
+document.querySelectorAll("input").forEach(x=>x.checked=false);
+
+if(userAnswers[index]){
+
+document.querySelector(`input[value=${userAnswers[index]}]`).checked=true;
+
+}
+
+}
+
+function next(){
+
+let s=document.querySelector("input[name=ans]:checked");
+
+if(s){
+
+userAnswers[index]=s.value;
+
+}
+
+index++;
+
+if(index<questions.length){
+
+load();
+
+}
+
+}
+
+function finish(){
+
+clearInterval(timerInterval);
+
+let correct=0;
+
+questions.forEach((q,i)=>{
+
+if(userAnswers[i]===q.answer) correct++;
+
+});
+
+let wrong = questions.length - correct;
+
+document.getElementById("box").innerHTML=
+
+`<h2>Weekly Test Result</h2>
+
+Correct : ${correct}<br>
+Wrong : ${wrong}<br>
+Total Questions : ${questions.length}
+
+<br><br>
+
+<button onclick="location.reload()">Start Again</button>
+`;
+
+}
+
+loadQuestions();
+
+</script>
+
+</body>
+</html>

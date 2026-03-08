@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Adaptive Test</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+#box{
+width:800px;
+margin:auto;
+background:white;
+padding:20px;
+}
+
+img{
+max-width:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="box">
+
+<h2>Adaptive Practice Test</h2>
+
+<div id="question"></div>
+
+<label><input type="radio" name="ans" value="A">A</label>
+<label><input type="radio" name="ans" value="B">B</label>
+<label><input type="radio" name="ans" value="C">C</label>
+<label><input type="radio" name="ans" value="D">D</label>
+
+<br><br>
+
+<button onclick="next()">Next</button>
+<button onclick="finish()">Finish</button>
+
+</div>
+
+<script>
+
+let data=JSON.parse(localStorage.getItem("adaptive"))||{};
+
+let questions=[];
+
+for(let topic in data){
+
+let t=data[topic];
+
+let hardCount=Math.ceil(t.hard.length*0.5);
+let mediumCount=Math.ceil(t.medium.length*0.3);
+let easyCount=Math.ceil(t.easy.length*0.2);
+
+questions.push(...t.hard.slice(0,hardCount).map(q=>({topic,q})));
+questions.push(...t.medium.slice(0,mediumCount).map(q=>({topic,q})));
+questions.push(...t.easy.slice(0,easyCount).map(q=>({topic,q})));
+
+}
+
+questions.sort(()=>Math.random()-0.5);
+
+let index=0;
+let answers=[];
+let userAnswers={};
+
+async function loadAnswers(topic){
+
+let path=findTopicPath(topic);
+
+let res=await fetch(path+"answers.txt");
+
+let txt=await res.text();
+
+answers=txt.trim().split("\n");
+
+}
+
+function findTopicPath(topic){
+
+let map={
+
+"Topic Test":"questions/numerical/percentages/"
+
+};
+
+return map[topic] || "";
+
+}
+
+async function load(){
+
+let q=questions[index];
+
+let path=findTopicPath(q.topic);
+
+await loadAnswers(q.topic);
+
+document.getElementById("question").innerHTML=
+
+`<img src="${path}${q.q}.PNG">`;
+
+}
+
+function next(){
+
+let s=document.querySelector("input[name=ans]:checked");
+
+if(s){
+
+userAnswers[index]=s.value;
+
+}
+
+index++;
+
+if(index<questions.length){
+
+load();
+
+}
+
+}
+
+function finish(){
+
+let correct=0;
+
+questions.forEach((q,i)=>{
+
+if(userAnswers[i]==answers[q.q-1]) correct++;
+
+});
+
+document.getElementById("box").innerHTML=
+
+`<h2>Adaptive Result</h2>
+Correct ${correct}/${questions.length}`;
+
+}
+
+load();
+
+</script>
+
+</body>
+</html>

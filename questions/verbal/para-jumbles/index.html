@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>Placement Practice Portal</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#eef2f7;
+margin:0;
+text-align:center;
+}
+
+.header{
+background:#2c3e50;
+color:white;
+padding:20px;
+}
+
+.container{
+width:1200px;
+margin:auto;
+padding:20px;
+}
+
+.topmenu{
+margin-bottom:20px;
+}
+
+.topic{
+background:#3498db;
+color:white;
+padding:10px;
+margin:6px 0;
+border-radius:5px;
+cursor:pointer;
+transition:0.25s;
+font-size:14px;
+}
+
+.topic:hover{
+background:#1abc9c;
+transform:scale(1.03);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.card{
+background:white;
+border-radius:6px;
+box-shadow:0 0 8px #ccc;
+padding:15px;
+}
+
+.card h3{
+margin-top:0;
+background:#f2f2f2;
+padding:10px;
+}
+
+.footer{
+margin-top:30px;
+color:#666;
+font-size:13px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>Placement Practice Portal</h1>
+
+<div id="goalText">
+Today's Goal: Solve 30 Questions 🚀
+</div>
+
+<div id="tipText" style="margin-top:5px;font-size:14px;color:#dfe6e9;">
+Loading tip...
+</div>
+
+</div>
+
+
+<div class="container">
+
+<!-- TOP MENU -->
+
+<div class="topmenu">
+
+<div class="topic"
+title="Full mixed placement test from all topics."
+onclick="openExam('grandtest.html')">
+🧠 Grand Test
+</div>
+
+<div class="topic"
+title="Automatically generated weekly placement practice."
+onclick="openExam('weekly-test.html')">
+📝 Weekly Test
+</div>
+
+<div class="topic"
+title="View progress charts and learning improvement."
+onclick="openExam('progress.html')">
+📊 Progress Charts
+</div>
+
+<div class="topic"
+title="Detailed performance statistics."
+onclick="openExam('performance.html')">
+📋 Performance Dashboard
+</div>
+
+</div>
+
+
+<!-- GRID -->
+
+<div class="grid">
+
+
+<!-- NUMERICAL -->
+
+<div class="card">
+
+<h3>📐 Numerical Ability</h3>
+
+<div class="topic" title="Basic number system concepts" onclick="openExam('questions/numerical/numbers/index.html')">🔢 Numbers</div>
+
+<div class="topic" title="Highest common factor and lowest common multiple" onclick="openExam('questions/numerical/hcf-lcm/index.html')">🧩 HCF & LCM</div>
+
+<div class="topic" title="Fraction operations and comparisons" onclick="openExam('questions/numerical/fractions/index.html')">🍰 Fractions</div>
+
+<div class="topic" title="Square root and cube root calculations" onclick="openExam('questions/numerical/roots/index.html')">√ Roots</div>
+
+<div class="topic" title="Ratio and proportion relationships" onclick="openExam('questions/numerical/ratio/index.html')">⚖ Ratio & Proportion</div>
+
+<div class="topic" title="Mixture problems using alligation method" onclick="openExam('questions/numerical/alligation/index.html')">🥛 Alligation</div>
+
+<div class="topic" title="Work rate and efficiency problems" onclick="openExam('questions/numerical/time-work/index.html')">⏱ Time & Work</div>
+
+<div class="topic" title="Speed distance and travel problems" onclick="openExam('questions/numerical/time-distance/index.html')">🚆 Time & Distance</div>
+
+<div class="topic" title="Percentage increase decrease comparisons" onclick="openExam('questions/numerical/percentages/index.html')">📊 Percentages</div>
+
+<div class="topic" title="Average value calculations" onclick="openExam('questions/numerical/average/index.html')">📈 Averages</div>
+
+<div class="topic" title="Simple interest calculations" onclick="openExam('questions/numerical/simple-interest/index.html')">💰 Simple Interest</div>
+
+<div class="topic" title="Compound interest calculations" onclick="openExam('questions/numerical/compound-interest/index.html')">🏦 Compound Interest</div>
+
+<div class="topic" title="Profit loss and discount calculations" onclick="openExam('questions/numerical/profit-loss/index.html')">💵 Profit & Loss</div>
+
+<div class="topic" title="Permutations combinations counting methods" onclick="openExam('questions/numerical/permutations/index.html')">🎲 Permutations</div>
+
+<div class="topic" title="Probability based questions" onclick="openExam('questions/numerical/probability/index.html')">🎯 Probability</div>
+
+</div>
+
+
+<!-- REASONING -->
+
+<div class="card">
+
+<h3>🧠 Logical Reasoning</h3>
+
+<div class="topic" title="Find missing number patterns" onclick="openExam('questions/reasoning/number-series/index.html')">🔢 Number Series</div>
+
+<div class="topic" title="Alphabet based sequence logic" onclick="openExam('questions/reasoning/alphabet-series/index.html')">🔤 Alphabet Series</div>
+
+<div class="topic" title="Pattern based coding questions" onclick="openExam('questions/reasoning/coding-decoding/index.html')">🔐 Coding Decoding</div>
+
+<div class="topic" title="Family relationship reasoning problems" onclick="openExam('questions/reasoning/blood-relations/index.html')">👨‍👩‍👧 Blood Relations</div>
+
+<div class="topic" title="Direction and distance reasoning" onclick="openExam('questions/reasoning/direction/index.html')">🧭 Direction Sense</div>
+
+<div class="topic" title="Find odd item in logical group" onclick="openExam('questions/reasoning/odd-one-out/index.html')">❓ Odd One Out</div>
+
+<div class="topic" title="Relationship between two pairs" onclick="openExam('questions/reasoning/analogy/index.html')">🔗 Analogy</div>
+
+<div class="topic" title="Arrange people or objects logically" onclick="openExam('questions/reasoning/seating/index.html')">🪑 Seating Arrangement</div>
+
+<div class="topic" title="Logical statements and conclusions" onclick="openExam('questions/reasoning/syllogism/index.html')">📚 Syllogism</div>
+
+<div class="topic" title="Puzzle based reasoning problems" onclick="openExam('questions/reasoning/puzzles/index.html')">🧠 Logical Puzzles</div>
+
+</div>
+
+
+<!-- VERBAL -->
+
+<div class="card">
+
+<h3>📖 Verbal Ability</h3>
+
+<div class="topic" title="Basic grammar rules" onclick="openExam('questions/verbal/grammar/index.html')">📖 Grammar</div>
+
+<div class="topic" title="Identify grammatical mistakes" onclick="openExam('questions/verbal/error-spotting/index.html')">🔍 Error Spotting</div>
+
+<div class="topic" title="Correct sentences logically" onclick="openExam('questions/verbal/sentence-correction/index.html')">✏ Sentence Correction</div>
+
+<div class="topic" title="Vocabulary building exercises" onclick="openExam('questions/verbal/vocabulary/index.html')">📚 Vocabulary</div>
+
+<div class="topic" title="Word meaning practice" onclick="openExam('questions/verbal/synonyms/index.html')">🔤 Synonyms & Antonyms</div>
+
+<div class="topic" title="Common idioms and phrases" onclick="openExam('questions/verbal/idioms/index.html')">💬 Idioms & Phrases</div>
+
+<div class="topic" title="Reading comprehension passages" onclick="openExam('questions/verbal/reading/index.html')">📑 Reading Comprehension</div>
+
+<div class="topic" title="Sentence arrangement problems" onclick="openExam('questions/verbal/para-jumbles/index.html')">🧩 Para Jumbles</div>
+
+</div>
+
+</div>
+
+
+<div class="footer">
+Consistent Practice = Placement Success 💡
+</div>
+
+</div>
+
+
+<script>
+
+function openExam(path){
+window.location = path;
+}
+
+</script>
+
+
+<script>
+
+const tips = [
+
+"Tip: Accuracy is more important than speed.",
+"Tip: Review wrong questions immediately.",
+"Tip: Practice a little every day.",
+"Tip: Build strong fundamentals.",
+"Tip: Solve weak topics twice.",
+"Tip: Practice mental calculations.",
+"Tip: Small daily practice beats long irregular study.",
+"Tip: Understand concepts, not just answers."
+
+];
+
+function showRandomTip(){
+
+let randomTip = tips[Math.floor(Math.random()*tips.length)];
+
+document.getElementById("tipText").innerText = randomTip;
+
+}
+
+showRandomTip();
+
+</script>
+
+</body>
+</html>

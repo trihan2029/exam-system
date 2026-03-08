@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Performance Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+table{
+margin:auto;
+border-collapse:collapse;
+width:600px;
+background:white;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+}
+
+th{
+background:#3498db;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Performance Dashboard</h2>
+
+<table id="report">
+
+<tr>
+<th>Topic</th>
+<th>Attempts</th>
+<th>Correct</th>
+<th>Accuracy</th>
+</tr>
+
+</table>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("performance")) || {};
+
+let table=document.getElementById("report");
+
+for(let topic in data){
+
+let attempts=data[topic].attempts;
+let correct=data[topic].correct;
+
+let accuracy=((correct/attempts)*100).toFixed(1);
+
+table.innerHTML+=
+`<tr>
+<td>${topic}</td>
+<td>${attempts}</td>
+<td>${correct}</td>
+<td>${accuracy}%</td>
+</tr>`;
+
+}
+
+</script>
+
+</body>
+</html>

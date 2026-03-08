@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Grand Test</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+#box{
+width:800px;
+margin:auto;
+background:white;
+padding:20px;
+}
+
+img{
+max-width:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="box">
+
+<h2>Grand Test</h2>
+
+<div id="question"></div>
+
+<label><input type="radio" name="ans" value="A">A</label>
+<label><input type="radio" name="ans" value="B">B</label>
+<label><input type="radio" name="ans" value="C">C</label>
+<label><input type="radio" name="ans" value="D">D</label>
+
+<br><br>
+
+<button onclick="next()">Next</button>
+<button onclick="finish()">Finish</button>
+
+</div>
+
+<script>
+
+let folders=[
+
+"questions/numerical/percentages/",
+"questions/numerical/ratio/",
+"questions/reasoning/series/",
+"questions/verbal/grammar/"
+
+];
+
+let questions=[];
+let index=0;
+let userAnswers={};
+
+async function loadQuestions(){
+
+for(let folder of folders){
+
+let res=await fetch(folder+"answers.txt");
+
+let txt=await res.text();
+
+let ans=txt.trim().split("\n");
+
+for(let i=0;i<ans.length;i++){
+
+questions.push({
+
+img:folder+(i+1)+".PNG",
+answer:ans[i]
+
+});
+
+}
+
+}
+
+questions.sort(()=>Math.random()-0.5);
+
+load();
+
+}
+
+function load(){
+
+document.getElementById("question").innerHTML=
+
+`<img src="${questions[index].img}">`;
+
+}
+
+function next(){
+
+let selected=document.querySelector("input[name=ans]:checked");
+
+if(selected){
+
+userAnswers[index]=selected.value;
+
+}
+
+index++;
+
+if(index<questions.length){
+
+load();
+
+}
+
+}
+
+function finish(){
+
+let correct=0;
+
+questions.forEach((q,i)=>{
+
+if(userAnswers[i]==q.answer) correct++;
+
+});
+
+document.getElementById("box").innerHTML=
+
+`<h2>Grand Test Result</h2>
+Correct : ${correct}/${questions.length}`;
+
+}
+
+loadQuestions();
+
+</script>
+
+</body>
+</html>
